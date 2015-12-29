@@ -24,7 +24,7 @@ class PlatesTransformer implements TransformerInterface
      * The transformer constructor.
      *
      * Options are:
-     *   - "plates" a League\Plates\Engine instance
+     *   - "plates" a \League\Plates\Engine instance
      *   - "default" the directory where Plates will search templates
      *   - "extension" the extension of template files
      * if the option "plates" is provided, options "default" and "extension" are ignored.
