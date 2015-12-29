@@ -1,10 +1,10 @@
 <?php
 
-namespace MacFJA\PhpTransformer\Test\Plates;
+namespace PhpTransformers\Plates\Test;
 
 
 use League\Plates\Engine;
-use \MacFJA\PhpTransformer\Plates\PlatesTransformer;
+use PhpTransformers\Plates\PlatesTransformer;
 
 class PlatesTransformerTest extends \PHPUnit_Framework_TestCase
 {

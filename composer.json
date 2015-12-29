@@ -1,8 +1,9 @@
 {
-    "name": "macfja/phptransformer-plates",
+    "name": "phptransformers/plates",
     "authors": [
         {
-            "name": "MacFJA"
+            "name": "MacFJA",
+            "role": "Developer"
         }
     ],
     "description": "Plates implementation of PhpTransformer",
@@ -18,12 +19,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MacFJA\\PhpTransformer\\Test\\Plates\\": "tests/"
+            "PhpTransformers\\Plates\\Test\\": "tests/"
         }
     },
     "autoload": {
         "psr-4": {
-            "MacFJA\\PhpTransformer\\Plates\\": "lib/"
+            "PhpTransformers\\Plates\\": "lib/"
         }
     }
 }

@@ -7,7 +7,7 @@
 Via Composer
 
 ``` bash
-$ composer require macfja/phptransformer-plates
+$ composer require phptransformers/plates
 ```
 
 ## Usage

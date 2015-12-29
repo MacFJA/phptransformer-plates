@@ -1,6 +1,6 @@
 <?php
 
-namespace MacFJA\PhpTransformer\Plates;
+namespace PhpTransformers\Plates;
 
 use League\Plates\Engine;
 use PhpTransformers\PhpTransformer\TransformerInterface;
@@ -12,7 +12,7 @@ use PhpTransformers\PhpTransformer\TransformerInterface;
  * {@link http://platesphp.com/}
  *
  * @author  MacFJA
- * @package MacFJA\PhpTransformer\Plates
+ * @package PhpTransformers\Plates
  * @license MIT
  */
 class PlatesTransformer implements TransformerInterface
