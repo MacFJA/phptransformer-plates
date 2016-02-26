@@ -14,7 +14,7 @@ $ composer require phptransformers/plates
 
 ``` php
 $engine = new PlatesTransformer();
-echo $engine->render('Hello, {$name}!', array('name' => 'phptransformers');
+echo $engine->render('Hello, {$name}!', array('name' => 'phptransformers'));
 ```
 
 ### Options

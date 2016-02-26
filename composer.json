@@ -10,7 +10,7 @@
     "license": "MIT",
     "keywords": ["Plates", "League", "The PHP League", "PhpTransformer", "PhpTransformers", "Templates"],
     "require": {
-        "phptransformers/phptransformer": "~0.0.1",
+        "phptransformers/phptransformer": "~1.0.0",
         "league/plates": "3.*"
     },
     "require-dev": {
