@@ -21,8 +21,8 @@ echo $engine->render('Hello, {$name}!', array('name' => 'phptransformers'));
 
 ``` php
 $engine = new PlatesTransformer(array(
-    'directory' => 'path/to/the/templates', // Default to the system temporary directory
-    'extension' => 'plates' // Extensions of templates files (Plates' default: "php")
+    'directory' => 'path/to/the/templates', // Default to the current working directory
+    'extension' => 'plates' // Extensions of templates files (default to no extention filtering)
 ));
 
 // ...
@@ -36,9 +36,9 @@ $engine = new PlatesTransformer(array(
 ## Testing
 
 ``` bash
-$ phpunit
+$ composer test
 ```
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

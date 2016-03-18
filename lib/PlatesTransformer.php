@@ -25,7 +25,7 @@ class PlatesTransformer implements TransformerInterface
      *
      * Options are:
      *   - "plates" a \League\Plates\Engine instance
-     *   - "default" the directory where Plates will search templates
+     *   - "directory" the directory where Plates will search templates
      *   - "extension" the extension of template files
      * if the option "plates" is provided, options "default" and "extension" are ignored.
      *
@@ -35,19 +35,20 @@ class PlatesTransformer implements TransformerInterface
     {
         if (array_key_exists('plates', $options)) {
             $this->plates = $options['plates'];
-        } else {
-            $this->plates = new Engine();
 
-            if (array_key_exists('directory', $options)) {
-                $this->plates->setDirectory($options['directory']);
-            } else {
-                $this->plates->setDirectory(sys_get_temp_dir());
-            }
-
-            if (array_key_exists('extension', $options)) {
-                $this->plates->setFileExtension($options['extension']);
-            }
+            return;
         }
+
+        $this->plates = new Engine(getcwd(), null);
+
+        if (array_key_exists('directory', $options)) {
+            $this->plates->setDirectory($options['directory']);
+        }
+
+        if (array_key_exists('extension', $options)) {
+            $this->plates->setFileExtension($options['extension']);
+        }
+
     }
 
     /**
@@ -82,19 +83,22 @@ class PlatesTransformer implements TransformerInterface
     public function render($template, array $locals = array())
     {
         $tmpName = uniqid('plates_tmp_', false);
-        $tmpPath = sys_get_temp_dir().'/'.$tmpName.'.'.$this->plates->getFileExtension();
+        $tmpPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tmpName;
+        if (!is_null($this->plates->getFileExtension())) {
+            $tmpPath .= '.'.$this->plates->getFileExtension();
+        }
 
         $isTmpRegister = $this->plates->getFolders()->exists(sys_get_temp_dir());
         if (!$isTmpRegister) {
-            $this->plates->addFolder($tmpName, sys_get_temp_dir());
+            $this->plates->addFolder(sys_get_temp_dir(), sys_get_temp_dir());
         }
         file_put_contents($tmpPath, $template);
 
-        $data = $this->plates->render($tmpName, $locals);
+        $data = $this->plates->render(sys_get_temp_dir() . '::' . $tmpName, $locals);
 
         unlink($tmpPath);
         if (!$isTmpRegister) {
-            $this->plates->getFolders()->remove($tmpName);
+            $this->plates->getFolders()->remove(sys_get_temp_dir());
         }
 
         return $data;
