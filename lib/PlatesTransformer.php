@@ -70,7 +70,26 @@ class PlatesTransformer implements TransformerInterface
      */
     public function renderFile($file, array $locals = array())
     {
-        return $this->plates->render($file, $locals);
+        $parent = dirname($file);
+        $name = basename($file, $this->getExtension());
+        $parentExisted = true;
+        if ($parent !== '.' && !$this->plates->getFolders()->exists($parent)) {
+            $parentExisted = false;
+            $this->plates->addFolder($parent, $parent);
+            $file = $parent . '::' . $name;
+        }
+        $data = $this->plates->render($file, $locals);
+
+        if (!$parentExisted) {
+            $this->plates->getFolders()->remove($parent);
+        }
+
+        return $data;
+    }
+
+    private function getExtension()
+    {
+        return $this->plates->getFileExtension() ? '.' . $this->plates->getFileExtension() : '';
     }
 
     /**
@@ -83,23 +102,12 @@ class PlatesTransformer implements TransformerInterface
     public function render($template, array $locals = array())
     {
         $tmpName = uniqid('plates_tmp_', false);
-        $tmpPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tmpName;
-        if (!is_null($this->plates->getFileExtension())) {
-            $tmpPath .= '.'.$this->plates->getFileExtension();
-        }
-
-        $isTmpRegister = $this->plates->getFolders()->exists(sys_get_temp_dir());
-        if (!$isTmpRegister) {
-            $this->plates->addFolder(sys_get_temp_dir(), sys_get_temp_dir());
-        }
+        $tmpPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tmpName . $this->getExtension();
         file_put_contents($tmpPath, $template);
 
-        $data = $this->plates->render(sys_get_temp_dir() . '::' . $tmpName, $locals);
+        $data = $this->renderFile($tmpPath, $locals);
 
         unlink($tmpPath);
-        if (!$isTmpRegister) {
-            $this->plates->getFolders()->remove(sys_get_temp_dir());
-        }
 
         return $data;
     }

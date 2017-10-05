@@ -16,7 +16,7 @@ class PlatesTransformerTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderFile()
     {
-        $engine = new PlatesTransformer(array('directory' => 'tests/Fixtures'));
+        $engine = new PlatesTransformer(array('directory' => __DIR__.'/Fixtures'));
 
         $actual = $engine->renderFile('template.plates', array('name' => 'Linus'));
 
@@ -28,7 +28,7 @@ class PlatesTransformerTest extends \PHPUnit_Framework_TestCase
         $engine = new PlatesTransformer();
 
         $actual = $engine->render(
-            file_get_contents('tests/Fixtures/template.plates'),
+            file_get_contents(__DIR__.'/Fixtures/template.plates'),
             array('name' => 'Linus')
         );
 
@@ -41,7 +41,7 @@ class PlatesTransformerTest extends \PHPUnit_Framework_TestCase
 
         $engine = new PlatesTransformer(array('plates' => $plates));
 
-        $actual = $engine->renderFile('tests/Fixtures/template', array('name' => 'Linus'));
+        $actual = $engine->renderFile(__DIR__.'/Fixtures/template', array('name' => 'Linus'));
 
         $this->assertEquals('Hello, Linus!', $actual);
     }
@@ -50,7 +50,7 @@ class PlatesTransformerTest extends \PHPUnit_Framework_TestCase
     {
         $engine = new PlatesTransformer(array('directory' => getcwd(), 'extension' => 'plates'));
 
-        $actual = $engine->renderFile('tests/Fixtures/template', array('name' => 'Linus'));
+        $actual = $engine->renderFile(__DIR__.'/Fixtures/template', array('name' => 'Linus'));
         $this->assertEquals('Hello, Linus!', $actual);
 
         $actual = $engine->render(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/template.plates'), array('name' => 'Linus'));
